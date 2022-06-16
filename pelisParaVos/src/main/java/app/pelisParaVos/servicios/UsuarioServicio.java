@@ -6,6 +6,7 @@ import app.pelisParaVos.errores.ErrorServicio;
 import app.pelisParaVos.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,10 @@ public class UsuarioServicio {
             return null;
         }
     }
-        
+    
+    public List<Usuario> buscarPorNombre(String nombre){
+        return urepo.buscarPorNombre(nombre);
+    }
     
     public void validator(String nombre, String apellido, LocalDate fechaNacimiento, String email, String password1, String password2) throws ErrorServicio{
      
