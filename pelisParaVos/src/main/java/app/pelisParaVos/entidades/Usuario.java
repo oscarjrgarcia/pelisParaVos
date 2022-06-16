@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,16 +23,20 @@ public class Usuario {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimiento;
     
+    @OneToOne
+    private Imagen foto;
+    
     private String email;
     private String password;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String apellido, Date fechaNacimiento, String email, String password) {
+    public Usuario(String nombre, String apellido, Date fechaNacimiento, Imagen foto, String email, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
+        this.foto = foto;
         this.email = email;
         this.password = password;
     }
@@ -68,6 +73,14 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Imagen getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Imagen foto) {
+        this.foto = foto;
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -83,11 +96,4 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", email=" + email + ", password=" + password + '}';
-    }
-    
-    
 }
