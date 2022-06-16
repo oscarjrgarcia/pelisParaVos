@@ -1,6 +1,6 @@
 package app.pelisParaVos.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +21,7 @@ public class Usuario {
     private String apellido;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     
     @OneToOne
     private Imagen foto;
@@ -32,7 +32,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombre, String apellido, Date fechaNacimiento, Imagen foto, String email, String password) {
+    public Usuario(String nombre, String apellido, LocalDate fechaNacimiento, Imagen foto, String email, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
@@ -65,11 +65,11 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
