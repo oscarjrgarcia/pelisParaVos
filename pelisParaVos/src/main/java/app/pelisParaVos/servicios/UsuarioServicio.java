@@ -6,9 +6,10 @@ import app.pelisParaVos.errores.ErrorServicio;
 import app.pelisParaVos.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -20,6 +21,7 @@ public class UsuarioServicio {
     @Autowired
     private ImagenServicio iservicio;
     
+    @Transactional
     public Usuario save(MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento, String email, String password1, String password2) throws ErrorServicio{
         
         validator(nombre,apellido,fechaNacimiento, email, password1, password2);
@@ -27,6 +29,26 @@ public class UsuarioServicio {
         Usuario u = new Usuario(nombre, apellido, fechaNacimiento, foto, email, password1);
         return urepo.save(u);
     }
+    
+    @Transactional
+    public Usuario edit(String id, MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento, String email, String password1, String password2) throws ErrorServicio{
+        Optional<Usuario> resp = urepo.findById(id);
+        if(resp.isPresent()){
+            validator(nombre,apellido, fechaNacimiento, email, password1, password2);
+            Usuario u = resp.get();
+            Imagen foto = iservicio.save(archivo);
+            u.setNombre(nombre);
+            u.setApellido(apellido);
+            u.setFechaNacimiento(fechaNacimiento);
+            u.setEmail(email);
+            u.setPassword(password2);
+            u.setFoto(foto);
+            return urepo.save(u);
+        }else{
+            return null;
+        }
+    }
+        
     
     public void validator(String nombre, String apellido, LocalDate fechaNacimiento, String email, String password1, String password2) throws ErrorServicio{
      
