@@ -15,6 +15,7 @@ public class Recomendacion {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
+    private String nombrePelicula;
     private String resenia;
     
     @OneToOne
@@ -28,7 +29,8 @@ public class Recomendacion {
     public Recomendacion() {
     }
 
-    public Recomendacion(String resenia, Imagen imagen, String urlTrailer, Usuario creador) {
+    public Recomendacion(String nombrePelicula, String resenia, Imagen imagen, String urlTrailer, Usuario creador) {
+        this.nombrePelicula = nombrePelicula;
         this.resenia = resenia;
         this.imagen = imagen;
         this.urlTrailer = urlTrailer;
@@ -43,6 +45,15 @@ public class Recomendacion {
         this.id = id;
     }
 
+    public String getNombrePelicula() {
+        return nombrePelicula;
+    }
+
+    public void setNombrePelicula(String nombrePelicula) {
+        this.nombrePelicula = nombrePelicula;
+    }
+
+    
     public String getResenia() {
         return resenia;
     }
